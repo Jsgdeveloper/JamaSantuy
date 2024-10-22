@@ -64,11 +64,17 @@ client.on('ready', () => {
 
 // Mengambil token dari environment variables yang di-set di Render.com
 const token = process.env.DISCORD_TOKEN;
+
+// Debug log untuk token
+console.log('Token Discord:', token ? 'Tersedia' : 'Tidak ditemukan');
+
 if (!token) {
   console.error('Token Discord tidak ditemukan!');
   process.exit(1); // Keluar dari proses jika token tidak ada
 }
+
+// Login ke Discord
 client.login(token)
   .then(() => console.log('Login berhasil!'))
-  .catch(console.error);
-    
+  .catch(err => console.error('Error saat login:', err));
+      
