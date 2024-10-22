@@ -1,6 +1,5 @@
-// Mengimpor library discord.js dan dotenv
+// Mengimpor library discord.js
 const Discord = require('discord.js');
-require('dotenv').config(); // Menggunakan dotenv untuk environment variable
 
 // Membuat instance dari client Discord
 const client = new Discord.Client({
@@ -9,11 +8,14 @@ const client = new Discord.Client({
 
 // Uptime ping function
 const http = require('http');
+const PORT = process.env.PORT || 3000; // Mendapatkan PORT dari environment variable
 http.createServer((req, res) => {
   res.writeHead(200, {'Content-Type': 'text/plain'});
   res.write('Website ini dibuat oleh HendraCoders');
   res.end();
-}).listen(process.env.PORT || 3000); // Server mendengarkan di port 3000 atau port dari environment variable
+}).listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`); // Menampilkan pesan saat server siap
+});
 
 // Variabel untuk menyimpan waktu yang telah berlalu
 let elapsedTime = 0; // dalam detik
@@ -56,7 +58,9 @@ client.on('ready', () => {
   }, 1000);
 });
 
+// Mengambil token dari environment variables yang di-set di Render.com
 const token = process.env.DISCORD_TOKEN;
 client.login(token)
   .then(() => console.log('Login berhasil!'))
   .catch(console.error);
+        
