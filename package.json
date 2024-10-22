@@ -1,0 +1,20 @@
+{
+  "name": "discord-bot-hendra-coders",
+  "version": "1.0.0",
+  "description": "Discord bot untuk Vibe City oleh HendraCoders",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.11.0",      // Pastikan menggunakan versi terbaru dari discord.js
+    "dotenv": "^16.0.3",           // Untuk mengelola environment variables
+    "http": "latest"               // Modul bawaan Node.js untuk server uptime
+  },
+  "engines": {
+    "node": ">=14.0.0"            // Versi Node.js yang didukung
+  },
+  "keywords": [],
+  "author": "HendraCoders",
+  "license": "ISC"
+}
