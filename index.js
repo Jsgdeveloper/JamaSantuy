@@ -1,24 +1,13 @@
 // Mengimpor library discord.js
-const { Client, GatewayIntentBits } = require('discord.js');
+const Discord = require('discord.js');
 
-// Membuat instance dari client Discord dengan intents yang benar
-const client = new Client({
+// Membuat instance dari client Discord dengan intents yang diperlukan
+const client = new Discord.Client({
   intents: [
-    GatewayIntentBits.Guilds,            // Menggunakan GatewayIntentBits
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.GuildPresences
-  ]
-});
-
-// Uptime ping function
-const http = require('http');
-const PORT = process.env.PORT || 3000; // Mendapatkan PORT dari environment variable
-http.createServer((req, res) => {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.write('Website ini dibuat oleh HendraCoders');
-  res.end();
-}).listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`); // Menampilkan pesan saat server siap
+    Discord.GatewayIntentBits.Guilds,
+    Discord.GatewayIntentBits.GuildMessages,
+    Discord.GatewayIntentBits.MessageContent // Tambahkan intent ini jika bot perlu membaca konten pesan
+  ],
 });
 
 // Variabel untuk menyimpan waktu yang telah berlalu
@@ -26,17 +15,21 @@ let elapsedTime = 0; // dalam detik
 
 // Fungsi untuk memperbarui waktu dan status
 const updatePresence = () => {
-  const hours = Math.floor(elapsedTime / 3600); // Menghitung jam
-  const minutes = Math.floor((elapsedTime % 3600) / 60); // Menghitung menit
-  const seconds = elapsedTime % 60; // Menghitung detik
+  // Menghitung jam, menit, dan detik
+  const hours = Math.floor(elapsedTime / 3600);
+  const minutes = Math.floor((elapsedTime % 3600) / 60);
+  const seconds = elapsedTime % 60;
+
+  // Format waktu menjadi string "HH:MM:SS"
   const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
+  // Mengatur status aktivitas akun Discord
   client.user.setPresence({
     activities: [{
       name: 'Vibe City',
       type: 'PLAYING',
-      state: timeString, // Waktu online dalam format HH:MM:SS
       details: 'Online 24/7',
+      state: timeString,
       assets: {
         largeImage: 'large-image-url', // Ganti dengan URL gambar besar
         smallImage: 'small-image-url', // Ganti dengan URL gambar kecil
@@ -44,37 +37,34 @@ const updatePresence = () => {
         smallText: 'Gambar kecil'
       },
       timestamps: {
-        start: Date.now()
+        start: Date.now() // Waktu mulai
       }
     }],
-    status: 'online'
+    status: 'online' // Status online
   })
-  .then(() => console.log(`Status aktivitas diperbarui ke: ${timeString}`))
+  .then(() => console.log(`Status streaming diperbarui ke: ${timeString}`))
   .catch(console.error);
 };
 
+// Event yang dijalankan ketika client siap
 client.on('ready', () => {
   console.log('Akun Discord Anda online!');
+  console.log('Website ini dibuat oleh hendraCoders'); // Pesan informasi
+  
+  // Memperbarui status awal
   updatePresence();
+
+  // Mengupdate waktu setiap detik
   setInterval(() => {
     elapsedTime++;
     updatePresence();
-  }, 1000);
+  }, 1000); // 1000 ms = 1 detik
 });
 
-// Mengambil token dari environment variables yang di-set di Render.com
+// Ambil token dari environment variable
 const token = process.env.DISCORD_TOKEN;
 
-// Debug log untuk token
-console.log('Token Discord:', token ? 'Tersedia' : 'Tidak ditemukan');
-
-if (!token) {
-  console.error('Token Discord tidak ditemukan!');
-  process.exit(1); // Keluar dari proses jika token tidak ada
-}
-
-// Login ke Discord
+// Login ke Discord menggunakan token dari environment variable
 client.login(token)
   .then(() => console.log('Login berhasil!'))
-  .catch(err => console.error('Error saat login:', err));
-      
+  .catch(error => console.error('Error saat login:', error));
