@@ -7,4 +7,4 @@ services:
     buildCommand: "npm install"
     startCommand: "npm start"
     envVars:
-      DISCORD_TOKEN: "" # Ini placeholder, token sudah diatur di Render
+      DISCORD_TOKEN: "MTI1MDk0MDQ0NzMyNTQyMTY2Mw.G8SPV2._JSTqXseRd5hPo0fjYurxMd86cdoRQKayXK8tc" # Ini placeholder, token sudah diatur di Render
