@@ -3,8 +3,12 @@ services:
   - type: web
     name: discord-bot-hendra-coders
     env: node
-    plan: starter
-    buildCommand: "npm install"
-    startCommand: "npm start"
-    envVars:
-      DISCORD_TOKEN: "MTI1MDk0MDQ0NzMyNTQyMTY2Mw.G8SPV2._JSTqXseRd5hPo0fjYurxMd86cdoRQKayXK8tc" # Ini placeholder, token sudah diatur di Render
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    env:
+      DISCORD_TOKEN: ${DISCORD_TOKEN} # Pastikan untuk mengatur ini di environment variables Render.com
+    autoDeploy: true
+    instanceType: micro
+    region: oregon
+    
