@@ -1,19 +1,10 @@
+version: 1
 services:
   - type: web
     name: discord-bot-hendra-coders
     env: node
-    plan: free  # atau ubah sesuai kebutuhan (paid plan juga tersedia)
+    plan: starter
     buildCommand: "npm install"
     startCommand: "npm start"
-    autoDeploy: true
     envVars:
-      - key: DISCORD_TOKEN
-        value: MTI1MDk0MDQ0NzMyNTQyMTY2Mw.GORaKG.LBdaKalvNNrpk7BsjUSEK2pMSL1LRzp70B57sY  # Ganti dengan token bot Discord
-    healthCheckPath: /
-    region: oregon
-    disk:
-      - name: persistent
-        mountPath: /var/data
-    envVars:
-      - key: KEEP_ALIVE
-        value: "true"
+      DISCORD_TOKEN: "" # Ini placeholder, token sudah diatur di Render
