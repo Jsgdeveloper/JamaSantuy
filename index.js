@@ -1,9 +1,13 @@
 // Mengimpor library discord.js
-const Discord = require('discord.js');
+const { Client, GatewayIntentBits } = require('discord.js');
 
-// Membuat instance dari client Discord
-const client = new Discord.Client({
-  intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_PRESENCES'] // Mengaktifkan intent yang diperlukan
+// Membuat instance dari client Discord dengan intents yang benar
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,            // Menggunakan GatewayIntentBits
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildPresences
+  ]
 });
 
 // Uptime ping function
@@ -63,4 +67,4 @@ const token = process.env.DISCORD_TOKEN;
 client.login(token)
   .then(() => console.log('Login berhasil!'))
   .catch(console.error);
-        
+          
