@@ -11,7 +11,7 @@
     "http": "latest"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=22.10.0"
   },
   "keywords": [],
   "author": "HendraCoders",
